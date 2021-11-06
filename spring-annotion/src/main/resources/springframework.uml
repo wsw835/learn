@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.springframework</OriginalElement>
+  <nodes>
+    <node x="176.50000000000006" y="250.0">org.springframework.remoting</node>
+    <node x="745.6388888888889" y="250.0">org.springframework.beans</node>
+    <node x="509.00000000000006" y="140.0">org.springframework.format</node>
+    <node x="585.0" y="250.0">org.springframework.scheduling</node>
+    <node x="752.7693014705883" y="0.0">org.springframework.asm</node>
+    <node x="335.0" y="485.0">org.springframework.cglib</node>
+    <node x="171.0" y="485.0">org.springframework.objenesis</node>
+    <node x="111.00000000000006" y="140.0">org.springframework.util</node>
+    <node x="930.8160232843138" y="330.0">org.springframework.jndi</node>
+    <node x="0.0" y="485.0">org.springframework.instrument</node>
+    <node x="952.6388888888889" y="250.0">org.springframework.aop</node>
+    <node x="215.00000000000006" y="140.0">org.springframework.expression</node>
+    <node x="640.5193014705883" y="140.0">org.springframework.ui</node>
+    <node x="856.6388888888889" y="250.0">org.springframework.jmx</node>
+    <node x="658.6591605392157" y="410.0">org.springframework.validation</node>
+    <node x="728.5193014705883" y="140.0">org.springframework.core</node>
+    <node x="470.0" y="485.0">org.springframework.ejb</node>
+    <node x="0.0" y="140.0">org.springframework.cache</node>
+    <node x="321.75000000000006" y="250.0">org.springframework.scripting</node>
+    <node x="362.00000000000006" y="140.0">org.springframework.stereotype</node>
+    <node x="496.8983864379086" y="0.0">org.springframework.lang</node>
+    <node x="654.3993566176471" y="330.0">org.springframework.context</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.jndi" target="org.springframework.lang">
+      <point x="27.66666666666663" y="-15.0" />
+      <point x="999.9826899509804" y="305.0" />
+      <point x="1039.138888888889" y="305.0" />
+      <point x="1039.138888888889" y="50.0" />
+      <point x="577.3046364379086" y="50.0" />
+      <point x="38.90625" y="15.0" />
+    </edge>
+    <edge source="org.springframework.scheduling" target="org.springframework.core">
+      <point x="31.5" y="-15.0" />
+      <point x="679.5" y="210.0" />
+      <point x="751.5748570261437" y="210.0" />
+      <point x="-18.444444444444457" y="15.0" />
+    </edge>
+    <edge source="org.springframework.remoting" target="org.springframework.core">
+      <point x="28.0" y="-15.0" />
+      <point x="260.50000000000006" y="190.0" />
+      <point x="733.1304125816994" y="190.0" />
+      <point x="-36.888888888888914" y="15.0" />
+    </edge>
+    <edge source="org.springframework.validation" target="org.springframework.lang">
+      <point x="-42.0" y="-15.0" />
+      <point x="679.6591605392157" y="385.0" />
+      <point x="100.50000000000006" y="385.0" />
+      <point x="100.50000000000006" y="60.0" />
+      <point x="504.6796364379086" y="60.0" />
+      <point x="-33.71875" y="15.0" />
+    </edge>
+    <edge source="org.springframework.context" target="org.springframework.core">
+      <point x="0.0" y="-15.0" />
+      <point x="706.3993566176471" y="305.0" />
+      <point x="732.6483864379086" y="305.0" />
+      <point x="732.6483864379086" y="220.0" />
+      <point x="760.797079248366" y="220.0" />
+      <point x="-9.222222222222229" y="15.0" />
+    </edge>
+    <edge source="org.springframework.stereotype" target="org.springframework.lang">
+      <point x="0.0" y="-15.0" />
+      <point x="425.00000000000006" y="110.0" />
+      <point x="530.6171364379086" y="110.0" />
+      <point x="-7.78125" y="15.0" />
+    </edge>
+    <edge source="org.springframework.scheduling" target="org.springframework.lang">
+      <point x="-31.5" y="-15.0" />
+      <point x="616.5" y="110.0" />
+      <point x="546.1796364379086" y="110.0" />
+      <point x="7.78125" y="15.0" />
+    </edge>
+    <edge source="org.springframework.jndi" target="org.springframework.core">
+      <point x="-27.66666666666663" y="-15.0" />
+      <point x="944.6493566176472" y="305.0" />
+      <point x="846.1388888888889" y="305.0" />
+      <point x="846.1388888888889" y="220.0" />
+      <point x="788.4637459150326" y="220.0" />
+      <point x="18.444444444444457" y="15.0" />
+    </edge>
+    <edge source="org.springframework.scripting" target="org.springframework.lang">
+      <point x="-29.75" y="-15.0" />
+      <point x="351.50000000000006" y="100.0" />
+      <point x="525.4296364379086" y="100.0" />
+      <point x="-12.96875" y="15.0" />
+    </edge>
+    <edge source="org.springframework.validation" target="org.springframework.context">
+      <point x="0.0" y="-15.0" />
+      <point x="721.6591605392157" y="385.0" />
+      <point x="706.3993566176471" y="385.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.springframework.expression" target="org.springframework.lang">
+      <point x="0.0" y="-15.0" />
+      <point x="278.00000000000006" y="90.0" />
+      <point x="520.2421364379086" y="90.0" />
+      <point x="-18.15625" y="15.0" />
+    </edge>
+    <edge source="org.springframework.jndi" target="org.springframework.aop">
+      <point x="0.0" y="-15.0" />
+      <point x="972.3160232843138" y="305.0" />
+      <point x="990.6388888888889" y="305.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.springframework.beans" target="org.springframework.core">
+      <point x="-30.0" y="-15.0" />
+      <point x="760.6388888888889" y="230.0" />
+      <point x="770.0193014705883" y="230.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.springframework.core" target="org.springframework.asm">
+      <point x="20.75" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="org.springframework.jmx" target="org.springframework.lang">
+      <point x="19.0" y="-15.0" />
+      <point x="913.6388888888889" y="70.0" />
+      <point x="566.9296364379086" y="70.0" />
+      <point x="28.53125" y="15.0" />
+    </edge>
+    <edge source="org.springframework.format" target="org.springframework.lang">
+      <point x="0.0" y="-15.0" />
+      <point x="557.5" y="120.0" />
+      <point x="540.9921364379086" y="120.0" />
+      <point x="2.59375" y="15.0" />
+    </edge>
+    <edge source="org.springframework.validation" target="org.springframework.beans">
+      <point x="42.0" y="-15.0" />
+      <point x="763.6591605392157" y="385.0" />
+      <point x="813.1388888888889" y="385.0" />
+      <point x="22.5" y="15.0" />
+    </edge>
+    <edge source="org.springframework.cache" target="org.springframework.lang">
+      <point x="0.0" y="-15.0" />
+      <point x="45.0" y="50.0" />
+      <point x="499.4921364379086" y="50.0" />
+      <point x="-38.90625" y="15.0" />
+    </edge>
+    <edge source="org.springframework.aop" target="org.springframework.lang">
+      <point x="19.0" y="-15.0" />
+      <point x="1009.6388888888889" y="60.0" />
+      <point x="572.1171364379086" y="60.0" />
+      <point x="33.71875" y="15.0" />
+    </edge>
+    <edge source="org.springframework.ui" target="org.springframework.lang">
+      <point x="5.6843418860808015E-14" y="-15.0" />
+      <point x="674.5193014705883" y="100.0" />
+      <point x="551.3671364379086" y="100.0" />
+      <point x="12.96875" y="15.0" />
+    </edge>
+    <edge source="org.springframework.jmx" target="org.springframework.core">
+      <point x="-19.0" y="-15.0" />
+      <point x="875.6388888888889" y="210.0" />
+      <point x="797.6859681372548" y="210.0" />
+      <point x="27.66666666666663" y="15.0" />
+    </edge>
+    <edge source="org.springframework.util" target="org.springframework.lang">
+      <point x="0.0" y="-15.0" />
+      <point x="152.50000000000006" y="70.0" />
+      <point x="509.8671364379086" y="70.0" />
+      <point x="-28.53125" y="15.0" />
+    </edge>
+    <edge source="org.springframework.core" target="org.springframework.lang">
+      <point x="-20.75" y="-15.0" />
+      <point x="749.2693014705883" y="90.0" />
+      <point x="556.5546364379086" y="90.0" />
+      <point x="18.15625" y="15.0" />
+    </edge>
+    <edge source="org.springframework.remoting" target="org.springframework.lang">
+      <point x="-28.0" y="-15.0" />
+      <point x="204.50000000000006" y="80.0" />
+      <point x="515.0546364379086" y="80.0" />
+      <point x="-23.34375" y="15.0" />
+    </edge>
+    <edge source="org.springframework.context" target="org.springframework.lang">
+      <point x="-34.66666666666666" y="-15.0" />
+      <point x="671.7326899509804" y="305.0" />
+      <point x="498.50000000000006" y="305.0" />
+      <point x="498.50000000000006" y="120.0" />
+      <point x="535.8046364379086" y="120.0" />
+      <point x="-2.59375" y="15.0" />
+    </edge>
+    <edge source="org.springframework.beans" target="org.springframework.lang">
+      <point x="30.0" y="-15.0" />
+      <point x="820.6388888888889" y="230.0" />
+      <point x="822.0193014705883" y="230.0" />
+      <point x="822.0193014705883" y="80.0" />
+      <point x="561.7421364379086" y="80.0" />
+      <point x="23.34375" y="15.0" />
+    </edge>
+    <edge source="org.springframework.aop" target="org.springframework.core">
+      <point x="-19.0" y="-15.0" />
+      <point x="971.6388888888889" y="200.0" />
+      <point x="806.9081903594772" y="200.0" />
+      <point x="36.888888888888914" y="15.0" />
+    </edge>
+    <edge source="org.springframework.scripting" target="org.springframework.core">
+      <point x="29.75" y="-15.0" />
+      <point x="411.00000000000006" y="200.0" />
+      <point x="742.3526348039215" y="200.0" />
+      <point x="-27.666666666666686" y="15.0" />
+    </edge>
+    <edge source="org.springframework.context" target="org.springframework.beans">
+      <point x="34.666666666666686" y="-15.0" />
+      <point x="741.0660232843138" y="305.0" />
+      <point x="768.1388888888889" y="305.0" />
+      <point x="-22.5" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7144856543037089" x="704.5" y="257.5" />
+  <SelectedNodes>
+    <node>org.springframework.format</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>属性</Category>
+    <Category>内部类</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

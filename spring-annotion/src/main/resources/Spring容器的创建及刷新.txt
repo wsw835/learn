@@ -1,0 +1,191 @@
+Spring容器的refresh()【创建刷新】
+1、prepareRefresh() 刷新前的预处理:
+    1）、initPropertySources()：初始化一些属性设置，子类自定义个性化的属性设置方法
+    2）、getEnvironment.validateRequiredProperties():校验必须属性值
+    3）、this.earlyApplicationEvents = new LinkedHashSet<>(); 保存一些早期的事件放入容器中
+
+2）、ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory(); 获取beanFactory
+    1）、refreshBeanFactory(); 刷新创建BeanFactory
+          1、如果已经有BeanFactory了，销毁所有bean并关闭BeanFactory ：
+              destroyBeans();
+              closeBeanFactory();
+          2、否则创建一个DefaultListableBeanFactory
+              DefaultListableBeanFactory beanFactory = createBeanFactory();
+          3、设置beanFactory的序列化id
+              beanFactory.setSerializationId(getId());
+          4、自定义beanFactory
+              customizeBeanFactory(beanFactory);
+          5、加载bean定义
+              loadBeanDefinitions(beanFactory);
+               （1）构建并加载XmlBeanDefinitionReader，设置环境参数、资源加载器，实体解析器
+                  		XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory);
+                  		beanDefinitionReader.setEnvironment(this.getEnvironment());
+                  		beanDefinitionReader.setResourceLoader(this);
+                  		beanDefinitionReader.setEntityResolver(new ResourceEntityResolver(this));
+                  		initBeanDefinitionReader(beanDefinitionReader);
+                  		loadBeanDefinitions(beanDefinitionReader);
+    2）、getBeanFactory(); 返回BeanFactory
+         将DefaultListableBeanFactory转化为ConfigurableListableBeanFactory，并返回ConfigurableListableBeanFactory对象
+
+3）、prepareBeanFactory(beanFactory);bean工厂的预准备工作，对BeanFactory进行一些设置
+    1）、beanFactory.setBeanClassLoader(getClassLoader()); 设置bean的类加载器
+    2）、beanFactory.setBeanExpressionResolver(new StandardBeanExpressionResolver(beanFactory.getBeanClassLoader())); 设置Spel表达式解析器
+    3）、beanFactory.addPropertyEditorRegistrar(new ResourceEditorRegistrar(this, getEnvironment())); 添加资源加载器、属性解析器
+    4）、beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this)); 添加ApplicationContextAwareProcessor后置处理器
+    5）、添加一些可以直接忽略自动装配的接口，这些接口不可通过类型直接获取bean
+          beanFactory.ignoreDependencyInterface(EnvironmentAware.class);
+          beanFactory.ignoreDependencyInterface(EmbeddedValueResolverAware.class);
+          beanFactory.ignoreDependencyInterface(ResourceLoaderAware.class);
+          beanFactory.ignoreDependencyInterface(ApplicationEventPublisherAware.class);
+          beanFactory.ignoreDependencyInterface(MessageSourceAware.class);
+          beanFactory.ignoreDependencyInterface(ApplicationContextAware.class);
+          beanFactory.ignoreDependencyInterface(ApplicationStartup.class);
+    6）、添加一些可以自动装配注入的接口，任何地方直接使用，会自动注入
+          beanFactory.registerResolvableDependency(BeanFactory.class, beanFactory);
+          beanFactory.registerResolvableDependency(ResourceLoader.class, this);
+          beanFactory.registerResolvableDependency(ApplicationEventPublisher.class, this);
+          beanFactory.registerResolvableDependency(ApplicationContext.class, this);
+    7）、beanFactory.addBeanPostProcessor(new ApplicationListenerDetector(this)); 添加 ApplicationListenerDetector（BeanPostProcessor）
+    8）、添加编译时的Aspectj
+         beanFactory.addBeanPostProcessor(new LoadTimeWeaverAwareProcessor(beanFactory));
+       	 // Set a temporary ClassLoader for type matching.
+       	 beanFactory.setTempClassLoader(new ContextTypeMatchClassLoader(beanFactory.getBeanClassLoader()));
+    9）、注册一些能直接用的bean放入BeanFactory容器中
+         ps: ENVIRONMENT_BEAN_NAME = 'environment' , SYSTEM_PROPERTIES_BEAN_NAME = 'systemProperties',
+         SYSTEM_ENVIRONMENT_BEAN_NAME='systemEnvironment', APPLICATION_STARTUP_BEAN_NAME='applicationStartup'
+         beanFactory.registerSingleton(ENVIRONMENT_BEAN_NAME, getEnvironment());
+         beanFactory.registerSingleton(SYSTEM_PROPERTIES_BEAN_NAME, getEnvironment().getSystemProperties());
+         beanFactory.registerSingleton(SYSTEM_ENVIRONMENT_BEAN_NAME, getEnvironment().getSystemEnvironment());
+         beanFactory.registerSingleton(APPLICATION_STARTUP_BEAN_NAME, getApplicationStartup());
+
+4）、postProcessBeanFactory(beanFactory); BeanFactory准备工作完成后进行的后置处理工作（允许在上下文子类中对 bean 工厂进行后处理。）
+        在标准初始化之后修改应用程序上下文的内部 bean 工厂。所有 bean 定义都将被加载，但尚未实例化任何 bean。
+        允许在某些 ApplicationContext 实现中注册特殊的 BeanPostProcessor 等。
+        ps: 子类可以通过重写这个方法来BeanFactory创建并预准备完成后进行进一步的设置
+
+-------------------  BeanFactory创建及预准备工作 ----------------------------
+5）、StartupStep beanPostProcess = this.applicationStartup.start("spring.context.beans.post-process");应用程序启动，标记开始
+
+6）、invokeBeanFactoryPostProcessors(beanFactory); 调用在上下文中注册为 bean 的工厂处理器，执行BeanFactoryPostProcessor后置处理方法
+          BeanFactoryPostProcessor ：BeanFactory的后置处理器，在BeanFactory标准初始化之后执行
+          总共有两种类型的BeanFactoryPostProcessor接口:
+          1、BeanFactoryPostProcessor
+          2、BeanDefinitionRegistryPostProcessor
+
+     PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(beanFactory, getBeanFactoryPostProcessors());
+         1、先便利获取所有的BeanDefinitionRegistryPostProcessor，按照是否实现优先级接口 PriorityOrdered、Ordered
+         及普通的BeanDefinitionRegistryPostProcessor类型的bean放入集合内，然后遍历调用	postProcessor.postProcessBeanDefinitionRegistry(registry);
+         2、然后便利获取所有的BeanFactoryPostProcessor，同样按照是否实现优先级接口 PriorityOrdered、Ordered或者普通的BeanFactoryPostProcessor，
+         放入临时集合，遍历调用postProcessor.postProcessBeanFactory(beanFactory);
+
+7）、registerBeanPostProcessors(beanFactory); 注册BeanPostProcessor,bean的后置处理器，拦截 bean 创建的 bean 处理器。
+        PostProcessorRegistrationDelegate.registerBeanPostProcessors(beanFactory, this);
+            DestructionAwareBeanPostProcessor
+            InstantiationAwareBeanPostProcessor
+            MergedBeanDefinitionPostProcessor
+            SmartInstantiationAwareBeanPostProcessor
+           ps:  以上不同接口类型的BeanPostProcessor，对bean的处理机制不一样，处理时机不一样
+          1）、按类型获取所有的BeanPostProcessor,按实现的优先级接口PriorityOrdered、Ordered接口先后放入临时容器，最中添加进BeanFactory的BeanPostProcessor中
+                    String[] postProcessorNames = beanFactory.getBeanNamesForType(BeanPostProcessor.class, true, false);
+                    int beanProcessorTargetCount = beanFactory.getBeanPostProcessorCount() + 1 + postProcessorNames.length;
+             		beanFactory.addBeanPostProcessor(new BeanPostProcessorChecker(beanFactory, beanProcessorTargetCount));
+             （1）先往BeanFactory容器中添加 BeanPostProcessorChecker 的后置处理器
+             （2）先获取并往容器中注册实现PriorityOrdered接口的BeanPostProcessor
+             （3）再获取并往容器中注册实现了Ordered接口的BeanPostProcessor
+             （4）再注册没有实现排序接口的BeanPostProcessor
+             （5）最后注册MergedBeanDefinitionPostProcessor类型的BeanPostProcessor
+             （6）最终注册一个ApplicationListenerDetector：在完成bean的初始化工作后，找到ApplicationListener类型的所有bean并添加进容器中
+                 	public Object postProcessAfterInitialization(Object bean, String beanName) {
+                 		if (bean instanceof ApplicationListener) {
+                 			// potentially not detected as a listener by getBeanNamesForType retrieval
+                 			Boolean flag = this.singletonNames.get(beanName);
+                 			if (Boolean.TRUE.equals(flag)) {
+                 				// singleton bean (top-level or inner): register on the fly
+                 				this.applicationContext.addApplicationListener((ApplicationListener<?>) bean);
+                 			}
+                 			else if (Boolean.FALSE.equals(flag)) {
+                 				if (logger.isWarnEnabled() && !this.applicationContext.containsBean(beanName)) {
+                 					// inner bean with other scope - can't reliably process events
+                 					logger.warn("Inner bean '" + beanName + "' implements ApplicationListener interface " +
+                 							"but is not reachable for event multicasting by its containing ApplicationContext " +
+                 							"because it does not have singleton scope. Only top-level listener beans are allowed " +
+                 							"to be of non-singleton scope.");
+                 				}
+                 				this.singletonNames.remove(beanName);
+                 			}
+                 		}
+                 		return bean;
+                 	}
+
+8）、initMessageSource();初始化MessageSource组件（国际化功能，消息绑定解析）
+     （1）ConfigurableListableBeanFactory beanFactory = getBeanFactory();获取当前BeanFactory容器
+     （2）判断容器中是否存在key（beanName）为messageSource的bean,
+            如果存在，设置当前的MessageSource为容器中获取的这个类型的bean
+          	  this.messageSource = beanFactory.getBean(MESSAGE_SOURCE_BEAN_NAME, MessageSource.class);
+          	如果不存在,创建一个DelegatingMessageSource对象，设置对应的parentMessageSource(MessageSource),
+          	设置当前持有的MessageSource对象为创建的DelegatingMessageSource，往容器中注册这个单例bean（beanName = messageSource）
+          	  DelegatingMessageSource dms = new DelegatingMessageSource();
+              dms.setParentMessageSource(getInternalParentMessageSource());
+              this.messageSource = dms;
+              beanFactory.registerSingleton(MESSAGE_SOURCE_BEAN_NAME, this.messageSource);
+
+9）、initApplicationEventMulticaster():  初始化事件多播(派发)器
+     （1）获取BeanFactory :	ConfigurableListableBeanFactory beanFactory = getBeanFactory();
+     （2）判断BeanFactory容器中是否已经存在applicationEventMulticaster作为id的Bean,如果有直接用，没有则创建一个SimpleApplicationEventMulticaster并注册进容器中
+          1、如果已经存在，则设置当前的事件派发器为当前bean:
+             this.applicationEventMulticaster = beanFactory.getBean(APPLICATION_EVENT_MULTICASTER_BEAN_NAME, ApplicationEventMulticaster.class);
+          2、如果不存在，创建一个SimpleApplicationEventMulticaster并注册进容器中
+             this.applicationEventMulticaster = new SimpleApplicationEventMulticaster(beanFactory);
+             beanFactory.registerSingleton(APPLICATION_EVENT_MULTICASTER_BEAN_NAME, this.applicationEventMulticaster);
+
+10）、onRefresh()：留给子类（子容器）=====可以覆盖的模板方法以添加特定于上下文的刷新工作。在单例实例化之前调用特殊 bean 的初始化
+        允许子类重写该方法，在容器刷新时可以自定义自己的逻辑
+
+11）、registerListeners() ：将所有的 ApplicationListener 类型的Bean添加进事件派发器中 === 添加实现 ApplicationListener 作为侦听器的 bean。不影响其他监听器，可以不加bean
+        1、首先注册静态指定的侦听器，并添加进事件派发器中：
+               for (ApplicationListener<?> listener : getApplicationListeners()) {
+                        getApplicationEventMulticaster().addApplicationListener(listener);
+               }
+        2、然后按类型获取所有的ApplicationListener，将其添加进事件派发器中：
+                String[] listenerBeanNames = getBeanNamesForType(ApplicationListener.class, true, false);
+                for (String listenerBeanName : listenerBeanNames) {
+                            getApplicationEventMulticaster().addApplicationListenerBean(listenerBeanName);
+                }
+        3、发布早期的应用程序事件： getApplicationEventMulticaster().multicastEvent(earlyEvent);
+                Set<ApplicationEvent> earlyEventsToProcess = this.earlyApplicationEvents;
+           		this.earlyApplicationEvents = null;
+           		if (!CollectionUtils.isEmpty(earlyEventsToProcess)) {
+           			for (ApplicationEvent earlyEvent : earlyEventsToProcess) {
+           				getApplicationEventMulticaster().multicastEvent(earlyEvent);
+           			}
+           		}
+
+12）、finishBeanFactoryInitialization(beanFactory); 实例化所有剩余的（非延迟初始化）单例。
+      1、为此上下文初始化转换服务。 判断容器中是否存在当前id为conversionService的bean,如果存在，直接设置为当前工厂的转换bean
+        		if (beanFactory.containsBean(CONVERSION_SERVICE_BEAN_NAME) &&
+        				beanFactory.isTypeMatch(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class)) {
+        			beanFactory.setConversionService(
+        					beanFactory.getBean(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class));
+        		}
+
+      2、如果之前没有任何 bean 后处理器（例如 PropertyPlaceholderConfigurer bean）注册，
+           则注册一个默认的嵌入值解析器：此时，主要用于注释属性值的解析。
+                if (!beanFactory.hasEmbeddedValueResolver()) {
+        			beanFactory.addEmbeddedValueResolver(strVal -> getEnvironment().resolvePlaceholders(strVal));
+        		}
+
+      3、尽早初始化 LoadTimeWeaverAware bean 以允许尽早注册它们的转换器。
+                String[] weaverAwareNames = beanFactory.getBeanNamesForType(LoadTimeWeaverAware.class, false, false);
+                for (String weaverAwareName : weaverAwareNames) {
+                    getBean(weaverAwareName);
+                }
+      4、停止使用临时 ClassLoader 进行类型匹配。
+        		beanFactory.setTempClassLoader(null);
+
+      5、允许缓存所有 bean 定义元数据，不需要进一步更改。
+                beanFactory.freezeConfiguration();
+
+      6、实例化所有剩余的（非延迟初始化）单例。
+      	        beanFactory.preInstantiateSingletons();
+
+      	  （1）、preInstantiateSingletons() : DefaultListBeanFactory

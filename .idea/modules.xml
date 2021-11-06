@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/learning.iml" filepath="$PROJECT_DIR$/learning.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-activemq/spring-activemq.iml" filepath="$PROJECT_DIR$/spring-activemq/spring-activemq.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-annotion/spring-annotion.iml" filepath="$PROJECT_DIR$/spring-annotion/spring-annotion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-cloud-alibaba-demo/spring-cloud-alibaba-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-alibaba-demo/spring-cloud-alibaba-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-cloud-demo/spring-cloud-demo.iml" filepath="$PROJECT_DIR$/spring-cloud-demo/spring-cloud-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-dubbo/spring-dubbo.iml" filepath="$PROJECT_DIR$/spring-dubbo/spring-dubbo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-kafka/spring-kafka.iml" filepath="$PROJECT_DIR$/spring-kafka/spring-kafka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-multiple-dataSource/spring-multiple-dataSource.iml" filepath="$PROJECT_DIR$/spring-multiple-dataSource/spring-multiple-dataSource.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-mvc-demo/spring-mvc-demo.iml" filepath="$PROJECT_DIR$/spring-mvc-demo/spring-mvc-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-mybatis/spring-mybatis.iml" filepath="$PROJECT_DIR$/spring-mybatis/spring-mybatis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-netty/spring-netty.iml" filepath="$PROJECT_DIR$/spring-netty/spring-netty.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-oauth2-demo/spring-oauth2-demo.iml" filepath="$PROJECT_DIR$/spring-oauth2-demo/spring-oauth2-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-openFeign/spring-openFeign.iml" filepath="$PROJECT_DIR$/spring-openFeign/spring-openFeign.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-rabbitmq/spring-rabbitmq.iml" filepath="$PROJECT_DIR$/spring-rabbitmq/spring-rabbitmq.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-rocketmq/spring-rocketmq.iml" filepath="$PROJECT_DIR$/spring-rocketmq/spring-rocketmq.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-security-test/spring-security-test.iml" filepath="$PROJECT_DIR$/spring-security-test/spring-security-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-shiro-demo/spring-shiro-demo.iml" filepath="$PROJECT_DIR$/spring-shiro-demo/spring-shiro-demo.iml" />
+    </modules>
+  </component>
+</project>

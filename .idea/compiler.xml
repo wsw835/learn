@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AjcSettings">
+    <option name="ajcPath" value="$MAVEN_REPOSITORY$/aspectj/aspectjtools/1.5.2a/aspectjtools-1.5.2a.jar" />
+    <option name="cmdLineParams" value="-showWeaveInfo" />
+    <option name="delegateToJavac" value="true" />
+  </component>
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="spring-rabbitmq" />
+        <module name="spring-kafka" />
+        <module name="spring-security-test" />
+        <module name="spring-mvc-demo" />
+        <module name="spring-multiple-dataSource" />
+        <module name="spring-openFeign" />
+        <module name="spring-annotion" />
+        <module name="spring-cloud-alibaba-demo" />
+        <module name="spring-mybatis" />
+        <module name="spring-netty" />
+        <module name="spring-cloud-demo" />
+        <module name="spring-oauth2-demo" />
+        <module name="spring-dubbo" />
+        <module name="spring-shiro-demo" />
+        <module name="spring-activemq" />
+        <module name="spring-rocketmq" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="application" target="1.5" />
+      <module name="learning" target="1.8" />
+      <module name="spring-activemq" target="1.8" />
+      <module name="spring-annotion" target="8" />
+      <module name="spring-cloud-alibaba-demo" target="1.8" />
+      <module name="spring-cloud-demo" target="1.8" />
+      <module name="spring-dubbo" target="1.8" />
+      <module name="spring-kafka" target="1.8" />
+      <module name="spring-multiple-dataSource" target="1.8" />
+      <module name="spring-mvc-demo" target="1.8" />
+      <module name="spring-mybatis" target="1.8" />
+      <module name="spring-netty" target="1.8" />
+      <module name="spring-oauth2-demo" target="1.8" />
+      <module name="spring-openFeign" target="1.8" />
+      <module name="spring-rabbitmq" target="1.8" />
+      <module name="spring-rocketmq" target="1.8" />
+      <module name="spring-security-test" target="1.8" />
+      <module name="spring-shiro-demo" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="application" options="" />
+      <module name="learning" options="-parameters" />
+      <module name="spring-activemq" options="-parameters" />
+      <module name="spring-annotion" options="-parameters" />
+      <module name="spring-cloud-alibaba-demo" options="-parameters" />
+      <module name="spring-cloud-demo" options="-parameters" />
+      <module name="spring-dubbo" options="-parameters" />
+      <module name="spring-kafka" options="-parameters" />
+      <module name="spring-multiple-dataSource" options="-parameters" />
+      <module name="spring-mvc-demo" options="-parameters" />
+      <module name="spring-mybatis" options="-parameters" />
+      <module name="spring-netty" options="-parameters" />
+      <module name="spring-oauth2-demo" options="-parameters" />
+      <module name="spring-openFeign" options="-parameters" />
+      <module name="spring-rabbitmq" options="-parameters" />
+      <module name="spring-rocketmq" options="-parameters" />
+      <module name="spring-security-test" options="-parameters" />
+      <module name="spring-shiro-demo" options="-parameters" />
+    </option>
+  </component>
+</project>
