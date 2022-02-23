@@ -15,11 +15,9 @@
         <module name="spring-kafka" />
         <module name="spring-security-test" />
         <module name="spring-mvc-demo" />
-        <module name="spring-multiple-dataSource" />
         <module name="spring-openFeign" />
         <module name="spring-annotion" />
         <module name="spring-cloud-alibaba-demo" />
-        <module name="spring-mybatis" />
         <module name="spring-netty" />
         <module name="spring-cloud-demo" />
         <module name="spring-oauth2-demo" />
@@ -27,6 +25,13 @@
         <module name="spring-shiro-demo" />
         <module name="spring-activemq" />
         <module name="spring-rocketmq" />
+      </profile>
+      <profile name="Annotation profile for learning" enabled="true">
+        <sourceOutputDir name="../target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="spring-mybatis" />
+        <module name="spring-multiple-dataSource" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

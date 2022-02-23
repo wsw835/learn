@@ -20,6 +20,7 @@ public class FactoryBeanT implements FactoryBean<User> {
         return User.class;
     }
 
+    @Override
     public boolean isSingleton() {
         //返回true表示这是一个单例对象，既在容器创建时就会自动调用方法将这个bean注册进容器，之后直接从容器中取
         return true;
