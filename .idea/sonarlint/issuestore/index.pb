@@ -41,3 +41,5 @@ Q
 !spring-cloud-alibaba-demo/pom.xml,b\a\ba55a965542754638da3b7d5312ac15a361baaf0
 ˆ
 Xspring-security-test/src/main/java/com/wensw/security/controller/GenerateController.java,e\3\e34b3fb02032028a5a6ac3359eada5fcaefbd9a7
+U
+%java-base/src/jvm/TestPcRegister.java,f\7\f7f435fe83d3724026c42b80a2e8524d987ad826
